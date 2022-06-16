@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+
+        <div id="qrcode" ></div>
         <table class="display">
             <tr>
                 <td class="title">Status:</td>
@@ -23,9 +25,11 @@
                 </td>
             </tr>
             <tr>
+
                 <td><div id="status" class="status"></div></td>
                 <td><div class="message" id="message"></div></td>
             </tr>
+
             <tr>
                 <td class="display-box standby" id="standby"><h2>Standby</h2></td>
                 <td class="display-box hidden" id="go"><h2>Go</h2></td>
@@ -37,6 +41,7 @@
         </table>
 
         <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@gh-pages/qrcode.min.js"></script>
         <script type="text/javascript">
             (function () {
 
@@ -75,10 +80,12 @@
                         } else {
                             lastPeerId = peer.id;
                         }
-
+			var qrcode = new QRCode("qrcode");
+			qrcode.makeCode(peer.id)
+			//qrcode.innerHTML = qrcode
                         console.log('ID: ' + peer.id);
                         recvId.innerHTML = "ID: " + peer.id;
-                        status.innerHTML = "Awaiting connection...";
+                        status.innerHTML = "iAwaiting connection...";
                     });
                     peer.on('connection', function (c) {
                         // Allow only a single connection
